@@ -1,6 +1,6 @@
-import { InputWithValue } from "../types/types"
+import { InputWithValue, IStructureObject } from "../types/types"
 
-const submit = (props: InputWithValue = {}) => {
+const submit = (props: InputWithValue = {}): IStructureObject => {
   return {
     typeof: 'submit',
     type: "submit",

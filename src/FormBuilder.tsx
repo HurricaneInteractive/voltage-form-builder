@@ -1,11 +1,8 @@
 import React from "react"
 import Form from "./components/form"
-import constructState from "./utils/construct-state"
 import { IFormBuilder } from "./types/types"
 
-const FormBuilder = ({ structure, events }: IFormBuilder) => {
-  const [state, setState] = React.useState(constructState(structure))
-
+const FormBuilder = ({ structure, events, state, setState }: IFormBuilder) => {
   const onFormSubmit = () => {
     if (events.submit) {
       events.submit(state)
@@ -15,7 +12,7 @@ const FormBuilder = ({ structure, events }: IFormBuilder) => {
   const onInputChange = (e: any) => {
     const { target: { name, value } } = e
 
-    setState(prevState => ({
+    setState((prevState: any) => ({
       ...prevState,
       [name]: value
     }));
@@ -25,17 +22,14 @@ const FormBuilder = ({ structure, events }: IFormBuilder) => {
     }
   }
 
-  return {
-    render: () => (
-      <Form
-        structure={structure}
-        state={state}
-        onSubmit={() => onFormSubmit()}
-        onChange={(e: any) => onInputChange(e)}
-      />
-    ),
-    state
-  }
+  return (
+    <Form
+      structure={structure}
+      state={state}
+      onSubmit={() => onFormSubmit()}
+      onChange={(e: any) => onInputChange(e)}
+    />
+  )
 }
 
 export default FormBuilder

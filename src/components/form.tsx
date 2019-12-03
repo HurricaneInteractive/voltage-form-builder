@@ -57,8 +57,11 @@ const Form = ({ structure: formStruct, state, onSubmit, onChange }: FormProps): 
       }
 
       if (type === "fieldset") {
-        console.log(structure[key])
         // Render fieldset structure
+        return noComponent(getKey(key, i))
+      }
+
+      if (!Component) {
         return noComponent(getKey(key, i))
       }
 
@@ -81,7 +84,7 @@ const Form = ({ structure: formStruct, state, onSubmit, onChange }: FormProps): 
   }
 
   const renderSubmit = () => {
-    let props: HTMLAttributes<HTMLInputElement> = formStruct.submit ? formStruct.submit : submit()
+    let props: HTMLAttributes<HTMLInputElement> = submit()
 
     return <input {...props} />
   }
