@@ -7,27 +7,29 @@ The goal for this project is to make form building in react easy and less tediou
 ## Example API
 
 ```js
-const form = FormBuilder({
-  structure: {
-    name: string(),
-    email: string({ type: "email", value: "abc@abc.com" }),
-    age: number(),
-    tooYoungMessage: msg("some HTML", { when: ['age', '<', 18] }),
-    // optional
-    submit: submit("Send email")
-  },
-  events: {
-    submit: (state) => {
-      console.log("Submit Form", { state })
-    },
-    change: (state) => {
-      console.log("On Change", { state })
-    }
-  },
-})
+import React, { useState } from 'react'
+import FormBuilder, { constructState, string } from 'voltage-form-builder'
 
-// Within a components render method
-<div className="form-wrapper">{ form.render() }</div>
+const YourComponent = () => {
+  const struct = {
+    email: string({ type: "email" }),
+    password: string({ type: "password" })
+  }
+  const [state, setState] = useState(constructState(struct))
+
+  const onSubmit = () => { // do your thing }
+
+  return (
+    <FormBuilder
+      structure={structure}
+      state={state}
+      setState={setState}
+      events={{
+        submit: onSubmit
+      }}
+    />
+  )
+}
 ```
 
 ## In the future
